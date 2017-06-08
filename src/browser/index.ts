@@ -13,6 +13,7 @@ import { ngTablePagination } from './ngTablePagination.directive';
 import { ngTableSelectFilterDs } from './ngTableSelectFilterDs.directive';
 import { ngTableSorterRow } from './ngTableSorterRow.directive';
 import { NgTableSorterRowController } from './ngTableSorterRowController';
+import { ngTableColspanRow } from './ngTableColspanRow.directive';
 import './filters/number.html';
 import './filters/select.html';
 import './filters/select-multiple.html';
@@ -34,7 +35,8 @@ const ngTableBrowserModule = angular.module('ngTable-browser', [])
     .directive('ngTablePagination', ngTablePagination)
     .directive('ngTableSelectFilterDs', ngTableSelectFilterDs)
     .directive('ngTableSorterRow', ngTableSorterRow)
-    .controller('ngTableSorterRowController', NgTableSorterRowController);
+    .controller('ngTableSorterRowController', NgTableSorterRowController)
+    .directive('ngTableColspanRow', ngTableColspanRow);
 
 export * from './public-interfaces';
 export { NgTableController, ngTableBrowserModule };
