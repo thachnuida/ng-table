@@ -118,6 +118,10 @@ export class NgTableDefaultGetDataProvider implements IServiceProvider {
 
                 const options = params.settings().dataOptions;
 
+                if (options.customGetData) {
+                    return options.customGetData(params);
+                }
+
                 const fData = options.applyFilter ? applyFilter(data, params) : data;
                 ngTableEventsChannel.publishAfterDataFiltered(params, fData);
 

@@ -7,8 +7,8 @@
             controller: myTableController
         });
 
-    myTableController.$inject = ['NgTableParams'];
-    function myTableController(NgTableParams) {
+    myTableController.$inject = ['NgTableParams', '$timeout', '$filter'];
+    function myTableController(NgTableParams, $timeout, $filter) {
         var data = [
             { name: "Moroni", age: 50 },
             { name: "Tiancum", age: 43 },
@@ -30,8 +30,21 @@
         ];
 
         this.tableParams = new NgTableParams({}, {
-            dataset: data
+            dataset: data,
+            dataOptions: {
+                applyFilter: false,
+                applyPaging: false,
+                applySort: false,
+                customGetData: customGetData
+            }
         });
+
+        function customGetData(params) {
+            $timeout(function() {
+                data.push({name: 'test ' + new Date().getTime(), age: 30});
+            }, 200);
+            return data;
+        }
     }
 
 })();

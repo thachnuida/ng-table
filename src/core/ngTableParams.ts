@@ -58,6 +58,8 @@ export class ParamValues<T> {
      * The grouping that should be applied to the data rows
      */
     group: string | Grouping<T> = {};
+
+    preventPageClickEvent? = false;
 }
 
 
@@ -375,7 +377,11 @@ export class NgTableParams<T> {
      * Changing the page number will cause `isDataReloadRequired` to return true
      */
     page(page: number): this
-    page(page?: number) {
+    page(page?: number, $event?: any) {
+        if (this._params.preventPageClickEvent && $event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+        }
         return page !== undefined ? this.parameters({
             'page': page
         }) : this._params.page;
