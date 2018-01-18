@@ -87,6 +87,7 @@ export class NgTableParams<T> {
      */
     data: T[] = [];
     reloadPages: () => void;
+    loadStaticData: (data:any) => void;
     private defaultSettings = Settings.createWithOverrides<T>();
     private errParamsMemento: Memento<T> | null;
     private isCommittedDataset = false;
@@ -119,6 +120,11 @@ export class NgTableParams<T> {
             }
         })();
 
+        this.loadStaticData = function (data: any) {
+            const oldData = this.data;
+            this.ngTableEventsChannel.publishAfterReloadData(this, data, oldData);
+        }
+        
         assignPartialDeep(this._params, this.ngTableDefaults.params);
 
         this.settings(baseSettings);
@@ -468,6 +474,7 @@ export class NgTableParams<T> {
             return this.$q.reject(reason);
         });
     }
+
     /**
      * Returns the settings for the table.
      */
