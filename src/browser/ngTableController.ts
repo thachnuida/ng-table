@@ -112,7 +112,7 @@ export class NgTableController<TParams, TCol extends ColumnDefPartial | DynamicT
         if (currentParams.hasFilterChanges()) {
             const applyFilter = () => {
                 currentParams.page(1);
-                currentParams.reload();
+                currentParams.reload(true); // filter change
             };
             if (filterOptions.filterDelay) {
                 this.delayFilter(applyFilter, filterOptions.filterDelay);
@@ -144,15 +144,19 @@ export class NgTableController<TParams, TCol extends ColumnDefPartial | DynamicT
                 headerTemplate = ng1.element('<thead ng-include="templates.header"></thead>', this.$document);
                 this.$element.prepend(headerTemplate);
             }
-            const paginationTemplate = ng1.element(
-                '<div ng-table-pagination="params" template-url="templates.pagination"></div>',
-                this.$document
-            );
-            this.$element.after(paginationTemplate);
+
             if (headerTemplate) {
                 this.$compile(headerTemplate)(this.$scope);
             }
-            this.$compile(paginationTemplate)(this.$scope);
+
+            if (this.$attrs.ngTablePaginationScroll == undefined) {
+                const paginationTemplate = ng1.element(
+                    '<div ng-table-pagination="params" template-url="templates.pagination"></div>',
+                    this.$document
+                );
+                this.$element.after(paginationTemplate);
+                this.$compile(paginationTemplate)(this.$scope);
+            }
         }
     }
 

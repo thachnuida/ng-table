@@ -46,6 +46,7 @@ describe('Settings', () => {
             debugMode: false,
             defaultSort: 'desc',
             counts: [10, 25, 50, 100],
+            isPagination : true,
             getData: fakeGetData as any,
             getGroups: fakeGetGroups as any,
             interceptors: [],

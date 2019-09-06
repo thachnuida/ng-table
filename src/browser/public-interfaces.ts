@@ -224,6 +224,7 @@ export interface TableHtmlAttributes extends IAttributes {
     showGroup?: string;
     templateHeader?: string;
     templatePagination?: string;
+    ngTablePaginationScroll?: string;
 }
 
 /**

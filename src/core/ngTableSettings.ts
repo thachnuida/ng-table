@@ -24,6 +24,7 @@ export class Settings<T> {
      * determines the possible values that can be supplied to {@link NgTableParams} `page`
      */
     counts = [10, 25, 50, 100];
+    isPagination = true;
     /**
      * An array that contains all the data rows that table should manage.
      * The `gateData` function will be used to manage the data rows
@@ -131,6 +132,7 @@ export type SettingsPartial<T> =
     Partial<Pick<Settings<T>,
     '$loading' |
     'counts' |
+    'isPagination' |
     'dataset' |
     'debugMode' |
     'total' |

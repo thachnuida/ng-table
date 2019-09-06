@@ -91,6 +91,7 @@ export class NgTableParams<T> {
     private defaultSettings = Settings.createWithOverrides<T>();
     private errParamsMemento: Memento<T> | null;
     private isCommittedDataset = false;
+    private isFiltering = false;
     isNullInstance: boolean;
     private initialEvents: Function[] | null = [];
     private ngTableDefaults: Defaults
@@ -439,13 +440,15 @@ export class NgTableParams<T> {
     /**
      * Trigger a reload of the data rows
      */
-    reload<TResult extends DataResult<T>>(): IPromise<TResult[]> {
+    reload<TResult extends DataResult<T>>(isFiltering?: boolean): IPromise<TResult[]> {
         let pData: ng1.IPromise<any>;
 
         this._settings.$loading = true;
 
         this.prevParamsMemento = ng1.copy(this.createComparableParams());
         this.isCommittedDataset = true;
+
+        this.isFiltering = !!isFiltering;
 
         if (this.hasGroup()) {
             pData = this.runInterceptorPipeline(this.$q.when(this._settings.getGroups(this)));
@@ -486,7 +489,7 @@ export class NgTableParams<T> {
      */
     settings(newSettings: SettingsPartial<T>): this
     settings(newSettings?: SettingsPartial<T>): this | Settings<T> {
-        if (newSettings === undefined) {
+        if (newSettings === undefined || !Object.keys(newSettings).length) {
             return this._settings;
         }
 

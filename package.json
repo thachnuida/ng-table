@@ -134,14 +134,5 @@
   },
   "peerDependencies": {
     "angular": "^1.2"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    },
-    "validate-commit-msg": {
-      "types": "conventional-commit-types",
-      "helpMessage": "To help create valid commit messages consider using `npm run cm` instead of `git commit`"
-    }
   }
 }
